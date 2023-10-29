@@ -1,0 +1,3 @@
+%{
+  "zig_builder": {:git, "https://github.com/spawnfest/zig_builder.git", "c1de826600eb034d70509bfbd413bf9965852924", []},
+}
