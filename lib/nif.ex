@@ -2,7 +2,7 @@ defmodule Nif do
   @on_load :init
 
   def init do
-    :ok = :erlang.load_nif(~c"./priv/nif", 0)
+    :ok = :erlang.load_nif(~c"./priv/libnif", 0)
   end
 
   def sum(_, _) do
