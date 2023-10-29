@@ -1,3 +1,3 @@
 %{
-  "zig_builder": {:git, "https://github.com/spawnfest/zig_builder.git", "7b5dfd8bf199ff281d7b3fdc3999bb89aa0ce680", [branch: "feature/compile-task"]},
+  "zig_builder": {:git, "https://github.com/spawnfest/zig_builder.git", "17e6141967ece3e8a05ab01337bfc4beecf854fa", []},
 }
