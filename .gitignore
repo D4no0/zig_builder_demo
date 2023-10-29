@@ -24,3 +24,5 @@ zig_builder_demo-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+/zig-cache/
