@@ -29,6 +29,7 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     lib.addCSourceFile(.{ .file = .{ .path = "c_src/nif.c" }, .flags = &.{erts_dir_flag} });
+    lib.addSystemIncludePath(.{ .path = "sys" });
 
     // MacOS specific flag
     lib.linker_allow_shlib_undefined = true;

@@ -26,3 +26,4 @@ zig_builder_demo-*.tar
 /tmp/
 
 /zig-cache/
+/zig-out/
