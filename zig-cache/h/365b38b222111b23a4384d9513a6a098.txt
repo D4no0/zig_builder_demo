@@ -1,2 +1,0 @@
-0
-329 5660030 1698597499810052101 d9ec3760d069b9cbf215d5f69653df97 0 /Users/daniel/Desktop/zig/zig_builder_demo/c_src/nif.c

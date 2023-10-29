@@ -23,7 +23,8 @@ defmodule ZigBuilderDemo.MixProject do
     [
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
-      {:zig_builder, git: "https://github.com/spawnfest/zig_builder.git"}
+      {:zig_builder,
+       git: "https://github.com/spawnfest/zig_builder.git", branch: "feature/compile-task"}
     ]
   end
 end

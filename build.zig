@@ -18,19 +18,8 @@ pub fn build(b: *std.Build) void {
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     defer arena.deinit();
     const allocator = arena.allocator();
-    const erts_dir = std.process.getEnvVarOwned(allocator, "ERTS_INCLUDE_DIR") catch "";
-    const flag = "-I";
-
-    // Allocate memory for the concatenated string
-    var concatenated = try allocator.alloc(u8, erts_dir.len + flag.len);
-
-    // Copy the first string into the allocated memory
-    try std.mem.copy(u8, concatenated, erts_dir, erts_dir.len);
-
-    // Copy the second string into the allocated memory
-    try std.mem.copy(u8, concatenated + erts_dir.len, flag, flag.len);
-
-    const result = concatenated[0 .. erts_dir.len + flag.len];
+    // TODO: Replace this with ERTS_INCLUDE_DIR when the allocation will not be bugged
+    const erts_dir_flag = std.process.getEnvVarOwned(allocator, "ERTS_INCLUDE_DIR_FLAG") catch "";
 
     const lib = b.addSharedLibrary(.{
         .name = "nif",
@@ -38,9 +27,8 @@ pub fn build(b: *std.Build) void {
         // complicated build scripts, this could be a generated file.
         .target = target,
         .optimize = optimize,
-        .use_lld = false,
     });
-    lib.addCSourceFile(.{ .file = .{ .path = "c_src/nif.c" }, .flags = &.{result} });
+    lib.addCSourceFile(.{ .file = .{ .path = "c_src/nif.c" }, .flags = &.{erts_dir_flag} });
 
     // MacOS specific flag
     lib.linker_allow_shlib_undefined = true;
@@ -48,11 +36,6 @@ pub fn build(b: *std.Build) void {
     // This declares intent for the library to be installed into the standard
     // location when the user invokes the "install" step (the default step when
     // running `zig build`).
-    b.installArtifact(lib);
-}
-
-fn concatAndReturnBuffer(allocator: *std.mem.Allocator, one: []const u8, two: []const u8) !std.RingBuffer {
-    var b = try std.RingBuffer.init(allocator, one);
-    try b.append(two);
-    return b;
+    const install = b.addInstallArtifact(lib, .{ .dest_dir = .{ .override = .{ .custom = "../priv" } } });
+    b.getInstallStep().dependOn(&install.step);
 }
