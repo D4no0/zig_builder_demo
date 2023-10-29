@@ -27,3 +27,5 @@ zig_builder_demo-*.tar
 
 /zig-cache/
 /zig-out/
+/priv/*.so
+/priv/*.dylib
