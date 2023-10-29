@@ -1,8 +1,13 @@
 defmodule Nif do
   @on_load :init
 
+  alias ZigBuilderDemo.Utils
+
   def init do
-    :ok = :erlang.load_nif(~c"./priv/libnif", 0)
+    # Workaround for mac
+    lib = "./priv/libnif"
+    Utils.load_lib(lib)
+    :ok = :erlang.load_nif(String.to_charlist(lib), 0)
   end
 
   def sum(_, _) do

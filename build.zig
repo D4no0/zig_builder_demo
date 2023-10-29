@@ -30,10 +30,10 @@ pub fn build(b: *std.Build) void {
     });
     lib.addCSourceFile(.{ .file = .{ .path = "c_src/nif.c" }, .flags = &.{erts_dir_flag} });
     lib.linkLibC();
-    // lib.linkSystemLibrary("sys");
 
     // MacOS specific flag
     lib.linker_allow_shlib_undefined = true;
+    lib.linker_dynamicbase = true;
 
     // This declares intent for the library to be installed into the standard
     // location when the user invokes the "install" step (the default step when
